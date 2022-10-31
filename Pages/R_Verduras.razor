@@ -1,0 +1,19 @@
+﻿@*page "/verduras"
+@page "/verduras{VerdurasId: int}"
+
+@inject VerdurasBLL verdurasBll
+
+@code {
+    [Parameter]
+    public int VerdurasId { get; set; }
+
+    public Verduras verdura { get; set; } = new Verduras();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+
+    
+
+}*@
