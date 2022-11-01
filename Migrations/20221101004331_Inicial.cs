@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Parcial2_Frank.Migrations
 {
-    public partial class inicial : Migration
+    public partial class Inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -56,8 +56,7 @@ namespace Parcial2_Frank.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Nombre = table.Column<string>(type: "TEXT", nullable: false),
                     FechaCreacion = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Observaciones = table.Column<string>(type: "TEXT", nullable: false),
-                    Cantidad = table.Column<int>(type: "INTEGER", nullable: false)
+                    Observaciones = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

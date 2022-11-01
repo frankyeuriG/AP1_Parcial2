@@ -2,6 +2,7 @@
 using Parcial2_Frank.Models;
 using Parcial2_Frank.Data;
 using System.Linq.Expressions;
+using System.Linq;
 
 namespace Parcial2_Frank.BLL
 {
@@ -25,6 +26,12 @@ namespace Parcial2_Frank.BLL
         }
         public bool Modificar(Verduras verdura)
         {
+            _contexto.Database.ExecuteSqlRaw($"Delete FROM VerdurasDetalle where and VerdurasId = {verdura.VerdurasId}");
+
+            foreach(var item in verdura.detalle)
+            {
+                _contexto.Entry(item).State = EntityState.Added;
+            }
             _contexto.Entry(verdura).State = EntityState.Modified;
             return _contexto.SaveChanges () > 0;
         }
@@ -58,6 +65,14 @@ namespace Parcial2_Frank.BLL
                 .AsNoTracking()
                 .Where(Criterio)
                 .Include(v => v.detalle)
+                .ToList();
+        }
+
+        public List<Vitaminas> GetVitaminas(Expression<Func<Vitaminas, bool>> Criterio)
+        {
+            return _contexto.vitaminas
+                .AsNoTracking()
+                .Where(Criterio)
                 .ToList();
         }
 

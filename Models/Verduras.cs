@@ -17,8 +17,6 @@ namespace Parcial2_Frank.Models
         [Required(ErrorMessage = "Es obligatoria la Observacion")]
         public string? Observaciones { get; set; }
 
-        public int Cantidad { get; set; }
-
         [ForeignKey("VerdurasId")]
         public virtual List<VerdurasDetalle> detalle { get; set; } = new List<VerdurasDetalle>();
 

@@ -219,9 +219,6 @@ namespace Parcial2_Frank.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Cantidad")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateTime>("FechaCreacion")
                         .HasColumnType("TEXT");
 

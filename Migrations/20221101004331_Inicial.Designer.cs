@@ -11,8 +11,8 @@ using Parcial2_Frank.Data;
 namespace Parcial2_Frank.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221031234307_inicial")]
-    partial class inicial
+    [Migration("20221101004331_Inicial")]
+    partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -219,9 +219,6 @@ namespace Parcial2_Frank.Migrations
                 {
                     b.Property<int>("VerdurasId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Cantidad")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("FechaCreacion")
