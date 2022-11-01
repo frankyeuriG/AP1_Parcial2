@@ -3,6 +3,7 @@ using Parcial2_Frank.Models;
 using Parcial2_Frank.Data;
 using System.Linq.Expressions;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Parcial2_Frank.BLL
 {
@@ -17,28 +18,31 @@ namespace Parcial2_Frank.BLL
 
         public bool Existe(int verduraId)
         {
-            return _contexto.verduras.Any(v => v.VerdurasId == verduraId);
+            return _contexto.verduras.Any(v => v.VerduraId == verduraId);
         }
-        public bool Insertar (Verduras verdura)
+        public bool Insertar(Verduras verdura)
         {
-            _contexto.Entry(verdura).State = EntityState.Added;
+            _contexto.verduras.Add(verdura);
+            _contexto.Entry(verdura).State = EntityState.Detached;
             return _contexto.SaveChanges() > 0;
         }
         public bool Modificar(Verduras verdura)
         {
-            _contexto.Database.ExecuteSqlRaw($"Delete FROM VerdurasDetalle where and VerdurasId = {verdura.VerdurasId}");
+            _contexto.Database.ExecuteSqlRaw($"Delete FROM VerdurasDetalle where and VerdurasId = {verdura.VerduraId}");
 
-            foreach(var item in verdura.detalle)
+            foreach (var item in verdura.Detalle)
             {
                 _contexto.Entry(item).State = EntityState.Added;
             }
             _contexto.Entry(verdura).State = EntityState.Modified;
-            return _contexto.SaveChanges () > 0;
+            return _contexto.SaveChanges() > 0;
         }
 
         public bool Guardar(Verduras verdura)
         {
-            if(!Existe(verdura.VerdurasId))
+            var existe =  Existe(verdura.VerduraId);
+
+            if (!existe)
                 return this.Insertar(verdura);
             else
                 return this.Modificar(verdura);
@@ -53,8 +57,8 @@ namespace Parcial2_Frank.BLL
         public Verduras? Buscar(int verdurasId)
         {
             return _contexto.verduras
-                .Where(v => v.VerdurasId == verdurasId)
-                .Include(v => v.detalle)
+                .Where(v => v.VerduraId == verdurasId)
+                .Include(v => v.Detalle)
                 .AsNoTracking()
                 .SingleOrDefault();
         }
@@ -64,7 +68,7 @@ namespace Parcial2_Frank.BLL
             return _contexto.verduras
                 .AsNoTracking()
                 .Where(Criterio)
-                .Include(v => v.detalle)
+                .Include(v => v.Detalle)
                 .ToList();
         }
 

@@ -7,18 +7,20 @@ namespace Parcial2_Frank.Models
     public class Verduras
     {
         [Key]
-        public int VerdurasId { get; set; }
+        public int VerduraId { get; set; }
 
         [Required(ErrorMessage = "Es obligatorio el nombre de la verdura")]
         public string? Nombre { get; set; }
 
         public DateTime FechaCreacion { get; set; }
 
-        [Required(ErrorMessage = "Es obligatoria la Observacion")]
+       
         public string? Observaciones { get; set; }
 
-        [ForeignKey("VerdurasId")]
-        public virtual List<VerdurasDetalle> detalle { get; set; } = new List<VerdurasDetalle>();
+        public double Total { get; set; }
+
+        [ForeignKey("VerduraId")]
+        public  List<VerdurasDetalle> Detalle { get; set; } = new List<VerdurasDetalle>();
 
     }
 
@@ -27,12 +29,10 @@ namespace Parcial2_Frank.Models
         [Key]
         public int id { get; set; }
 
-        [Required(ErrorMessage = "El verdurasId es obligatorio")]
-        public int VerdurasId { get; set; }
+        public int VerduraId { get; set; }
 
-        [Required(ErrorMessage ="El vitaminaId es obligatorio")]
         public int VitaminaId { get; set; }
-
+        
         public int Cantidad { get; set; }
 
 

@@ -20,14 +20,12 @@ public class ApplicationDbContext : IdentityDbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Vitaminas>().HasData(
-            new Vitaminas { VitaminasId = 1, Descripcion = "Vitamina C" },
-            new Vitaminas { VitaminasId = 2, Descripcion = "Betaina"},
-            new Vitaminas { VitaminasId = 3, Descripcion = "Vitamina K" },
-            new Vitaminas { VitaminasId = 4, Descripcion = "Vitamina A" },
-            new Vitaminas { VitaminasId = 5, Descripcion = "Vitamina E" },
-            new Vitaminas { VitaminasId = 6, Descripcion = "Acido Folico(B9)" }
-
-
+            new Vitaminas () { VitaminaId = 1, Descripcion = "Vitamina C" },
+            new Vitaminas () { VitaminaId = 2, Descripcion = "Betaina"},
+            new Vitaminas () { VitaminaId = 3, Descripcion = "Vitamina K" },
+            new Vitaminas () { VitaminaId = 4, Descripcion = "Vitamina A" },
+            new Vitaminas () { VitaminaId = 5, Descripcion = "Vitamina E" },
+            new Vitaminas () { VitaminaId = 6, Descripcion = "Acido Folico(B9)" }
             );
     }
     

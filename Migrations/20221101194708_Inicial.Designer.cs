@@ -11,7 +11,7 @@ using Parcial2_Frank.Data;
 namespace Parcial2_Frank.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221101004331_Inicial")]
+    [Migration("20221101194708_Inicial")]
     partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -217,7 +217,7 @@ namespace Parcial2_Frank.Migrations
 
             modelBuilder.Entity("Parcial2_Frank.Models.Verduras", b =>
                 {
-                    b.Property<int>("VerdurasId")
+                    b.Property<int>("VerduraId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -229,10 +229,12 @@ namespace Parcial2_Frank.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Observaciones")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("VerdurasId");
+                    b.Property<double>("Total")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("VerduraId");
 
                     b.ToTable("verduras");
                 });
@@ -246,7 +248,7 @@ namespace Parcial2_Frank.Migrations
                     b.Property<int>("Cantidad")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("VerdurasId")
+                    b.Property<int>("VerduraId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("VitaminaId")
@@ -254,54 +256,53 @@ namespace Parcial2_Frank.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("VerdurasId");
+                    b.HasIndex("VerduraId");
 
                     b.ToTable("VerdurasDetalle");
                 });
 
             modelBuilder.Entity("Parcial2_Frank.Models.Vitaminas", b =>
                 {
-                    b.Property<int>("VitaminasId")
+                    b.Property<int>("VitaminaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Descripcion")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("VitaminasId");
+                    b.HasKey("VitaminaId");
 
                     b.ToTable("vitaminas");
 
                     b.HasData(
                         new
                         {
-                            VitaminasId = 1,
+                            VitaminaId = 1,
                             Descripcion = "Vitamina C"
                         },
                         new
                         {
-                            VitaminasId = 2,
+                            VitaminaId = 2,
                             Descripcion = "Betaina"
                         },
                         new
                         {
-                            VitaminasId = 3,
+                            VitaminaId = 3,
                             Descripcion = "Vitamina K"
                         },
                         new
                         {
-                            VitaminasId = 4,
+                            VitaminaId = 4,
                             Descripcion = "Vitamina A"
                         },
                         new
                         {
-                            VitaminasId = 5,
+                            VitaminaId = 5,
                             Descripcion = "Vitamina E"
                         },
                         new
                         {
-                            VitaminasId = 6,
+                            VitaminaId = 6,
                             Descripcion = "Acido Folico(B9)"
                         });
                 });
@@ -360,15 +361,15 @@ namespace Parcial2_Frank.Migrations
             modelBuilder.Entity("Parcial2_Frank.Models.VerdurasDetalle", b =>
                 {
                     b.HasOne("Parcial2_Frank.Models.Verduras", null)
-                        .WithMany("detalle")
-                        .HasForeignKey("VerdurasId")
+                        .WithMany("Detalle")
+                        .HasForeignKey("VerduraId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("Parcial2_Frank.Models.Verduras", b =>
                 {
-                    b.Navigation("detalle");
+                    b.Navigation("Detalle");
                 });
 #pragma warning restore 612, 618
         }

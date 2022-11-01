@@ -40,6 +40,14 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Components.QuickGrid": {
+              "target": "Package",
+              "version": "[0.1.0-alpha.22351.1, )"
+            },
+            "Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter": {
+              "target": "Package",
+              "version": "[0.1.0-alpha.22351.1, )"
+            },
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
               "version": "[6.0.10, )"
@@ -59,6 +67,10 @@
             "Microsoft.EntityFrameworkCore.Tools": {
               "target": "Package",
               "version": "[6.0.10, )"
+            },
+            "Radzen.Blazor": {
+              "target": "Package",
+              "version": "[4.2.0, )"
             }
           },
           "imports": [

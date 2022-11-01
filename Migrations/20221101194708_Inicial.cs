@@ -52,28 +52,29 @@ namespace Parcial2_Frank.Migrations
                 name: "verduras",
                 columns: table => new
                 {
-                    VerdurasId = table.Column<int>(type: "INTEGER", nullable: false)
+                    VerduraId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Nombre = table.Column<string>(type: "TEXT", nullable: false),
                     FechaCreacion = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Observaciones = table.Column<string>(type: "TEXT", nullable: false)
+                    Observaciones = table.Column<string>(type: "TEXT", nullable: true),
+                    Total = table.Column<double>(type: "REAL", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_verduras", x => x.VerdurasId);
+                    table.PrimaryKey("PK_verduras", x => x.VerduraId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "vitaminas",
                 columns: table => new
                 {
-                    VitaminasId = table.Column<int>(type: "INTEGER", nullable: false)
+                    VitaminaId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Descripcion = table.Column<string>(type: "TEXT", nullable: false)
+                    Descripcion = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_vitaminas", x => x.VitaminasId);
+                    table.PrimaryKey("PK_vitaminas", x => x.VitaminaId);
                 });
 
             migrationBuilder.CreateTable(
@@ -188,7 +189,7 @@ namespace Parcial2_Frank.Migrations
                 {
                     id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    VerdurasId = table.Column<int>(type: "INTEGER", nullable: false),
+                    VerduraId = table.Column<int>(type: "INTEGER", nullable: false),
                     VitaminaId = table.Column<int>(type: "INTEGER", nullable: false),
                     Cantidad = table.Column<int>(type: "INTEGER", nullable: false)
                 },
@@ -196,41 +197,41 @@ namespace Parcial2_Frank.Migrations
                 {
                     table.PrimaryKey("PK_VerdurasDetalle", x => x.id);
                     table.ForeignKey(
-                        name: "FK_VerdurasDetalle_verduras_VerdurasId",
-                        column: x => x.VerdurasId,
+                        name: "FK_VerdurasDetalle_verduras_VerduraId",
+                        column: x => x.VerduraId,
                         principalTable: "verduras",
-                        principalColumn: "VerdurasId",
+                        principalColumn: "VerduraId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
                 table: "vitaminas",
-                columns: new[] { "VitaminasId", "Descripcion" },
+                columns: new[] { "VitaminaId", "Descripcion" },
                 values: new object[] { 1, "Vitamina C" });
 
             migrationBuilder.InsertData(
                 table: "vitaminas",
-                columns: new[] { "VitaminasId", "Descripcion" },
+                columns: new[] { "VitaminaId", "Descripcion" },
                 values: new object[] { 2, "Betaina" });
 
             migrationBuilder.InsertData(
                 table: "vitaminas",
-                columns: new[] { "VitaminasId", "Descripcion" },
+                columns: new[] { "VitaminaId", "Descripcion" },
                 values: new object[] { 3, "Vitamina K" });
 
             migrationBuilder.InsertData(
                 table: "vitaminas",
-                columns: new[] { "VitaminasId", "Descripcion" },
+                columns: new[] { "VitaminaId", "Descripcion" },
                 values: new object[] { 4, "Vitamina A" });
 
             migrationBuilder.InsertData(
                 table: "vitaminas",
-                columns: new[] { "VitaminasId", "Descripcion" },
+                columns: new[] { "VitaminaId", "Descripcion" },
                 values: new object[] { 5, "Vitamina E" });
 
             migrationBuilder.InsertData(
                 table: "vitaminas",
-                columns: new[] { "VitaminasId", "Descripcion" },
+                columns: new[] { "VitaminaId", "Descripcion" },
                 values: new object[] { 6, "Acido Folico(B9)" });
 
             migrationBuilder.CreateIndex(
@@ -271,9 +272,9 @@ namespace Parcial2_Frank.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_VerdurasDetalle_VerdurasId",
+                name: "IX_VerdurasDetalle_VerduraId",
                 table: "VerdurasDetalle",
-                column: "VerdurasId");
+                column: "VerduraId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
