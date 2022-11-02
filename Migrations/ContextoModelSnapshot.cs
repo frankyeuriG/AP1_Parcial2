@@ -3,14 +3,14 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Parcial2_Frank.Data;
+using Parcial2_Frank.Models;
 
 #nullable disable
 
 namespace Parcial2_Frank.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(Contexto))]
+    partial class ContextoModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -219,7 +219,7 @@ namespace Parcial2_Frank.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("FechaCreacion")
+                    b.Property<DateTime>("Fecha")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nombre")
@@ -227,6 +227,7 @@ namespace Parcial2_Frank.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Observaciones")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<double>("Total")
@@ -251,6 +252,10 @@ namespace Parcial2_Frank.Migrations
 
                     b.Property<int>("VitaminaId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("descripcion")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("id");
 

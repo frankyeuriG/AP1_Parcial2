@@ -55,8 +55,8 @@ namespace Parcial2_Frank.Migrations
                     VerduraId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Nombre = table.Column<string>(type: "TEXT", nullable: false),
-                    FechaCreacion = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Observaciones = table.Column<string>(type: "TEXT", nullable: true),
+                    Fecha = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Observaciones = table.Column<string>(type: "TEXT", nullable: false),
                     Total = table.Column<double>(type: "REAL", nullable: false)
                 },
                 constraints: table =>
@@ -191,7 +191,8 @@ namespace Parcial2_Frank.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     VerduraId = table.Column<int>(type: "INTEGER", nullable: false),
                     VitaminaId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Cantidad = table.Column<int>(type: "INTEGER", nullable: false)
+                    Cantidad = table.Column<int>(type: "INTEGER", nullable: false),
+                    descripcion = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

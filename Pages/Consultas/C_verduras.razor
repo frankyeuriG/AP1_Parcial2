@@ -4,54 +4,52 @@
 
 <EditForm Model="listaVerduras">
     <DataAnnotationsValidator />
-
-    <div class="card">
-        <div class="container">
-
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h3>Consulta de verduras</h3>
+            </div>
             <div class="card-body">
-                <div class="mb-3">
-                    <InputDate class="form-control" @bind-Value="fecha" />
-                    <div class="input-group-append col-2">
-                        <button type="button" @onclick="Todos">
-                            <i class="oi oi-magnifying-glass" /> Buscar
-                        </button>
-                    </div>
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-primary" type="button" @onclick="Todos">Todos los Registros</button>
-                    </div>
+                <label>Introduzca un Rango de Fecha</label>
+                <div class="input-group mb-4">
+                    <input type="date" @bind="fecha">
+                    <input type="date" @bind="fecha2">
+                    <button @onclick="Buscar" class="btn btn-primary"> <i class="oi oi-magnifying-glass"></i></button>
+                </div>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary" type="button" @onclick="Todos">Todos los Registros</button>
                 </div>
             </div>
-
-            <table class="table table-success table-striped">
-
-                <thead>
-                    <tr>
-                        <th>PagosId</th>
-                        <th>Fecha</th>
-                        <th>PersonaId</th>
-                        <th>Concepto</th>
-                        <th>Monto</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var verdura in listaVerduras)
-                    {
-                        <tr>
-                            <td>@verdura.VerduraId</td>
-                            <td>@verdura.FechaCreacion</td>
-                            <td>@verdura.Nombre</td>
-                            <td>@verdura.Observaciones</td>
-                            <td>@verdura.Total</td>
-                            <td><a href="verduras/@verdura.VerduraId">Ver</a></td>
-                        </tr>
-                    }
-
-                </tbody>
-
-            </table>
         </div>
 
+        <table class="table table-success table-striped">
+
+            <thead>
+                <tr>
+                    <th>PagosId</th>
+                    <th>Fecha</th>
+                    <th>PersonaId</th>
+                    <th>Concepto</th>
+                    <th>Monto</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var verdura in listaVerduras)
+                {
+                    <tr>
+                        <td>@verdura.VerduraId</td>
+                        <td>@verdura.Fecha</td>
+                        <td>@verdura.Nombre</td>
+                        <td>@verdura.Observaciones</td>
+                        <td>@verdura.Total</td>
+                        <td><a href="verduras/@verdura.VerduraId">Ver</a></td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
     </div>
 </EditForm>
 
@@ -60,17 +58,23 @@
     public string Filtro { get; set; } = "";
     public Verduras verdura { get; set; } = new Verduras();
     public DateTime fecha { get; set; }
+    public DateTime fecha2 { get; set; }
     public List<Verduras> listaVerduras { get; set; } = new List<Verduras>();
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
         fecha = DateTime.Now;
+        fecha2 = DateTime.Now;
+    }
+    public void Buscar()
+    {
+        listaVerduras = verduraBll.GetList(v => v.Fecha.Date == fecha.Date || v.Fecha.Date == fecha2.Date);
     }
 
     public void Todos()
     {
-        listaVerduras =  verduraBll.GetList(p => true);
+        listaVerduras = verduraBll.GetList(p => true);
     }
 
 

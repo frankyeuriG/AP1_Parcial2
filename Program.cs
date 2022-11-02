@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Parcial2_Frank.Areas.Identity;
-using Parcial2_Frank.Data;
 using Parcial2_Frank.BLL;
 using Parcial2_Frank.Models;
 using Radzen;
@@ -15,17 +14,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var ConStr = builder.Configuration.GetConnectionString("ConStr");
 
-builder.Services.AddDbContext<ApplicationDbContext >(Options =>
+builder.Services.AddDbContext<Contexto >(Options =>
     Options.UseSqlite(ConStr)
 );
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<Contexto>();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 builder.Services.AddScoped<VerdurasBLL>();
 builder.Services.AddScoped<NotificationService>();
+builder.Services.AddQuickGridEntityFrameworkAdapter();
 
 var app = builder.Build();
 

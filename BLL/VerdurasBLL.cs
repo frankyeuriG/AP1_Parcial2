@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Parcial2_Frank.Models;
-using Parcial2_Frank.Data;
 using System.Linq.Expressions;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,9 +8,9 @@ namespace Parcial2_Frank.BLL
 {
     public class VerdurasBLL
     {
-        public ApplicationDbContext _contexto;
+        public Contexto _contexto;
 
-        public VerdurasBLL(ApplicationDbContext context)
+        public VerdurasBLL(Contexto context)
         {
             _contexto = context;
         }
@@ -23,7 +22,6 @@ namespace Parcial2_Frank.BLL
         public bool Insertar(Verduras verdura)
         {
             _contexto.verduras.Add(verdura);
-            _contexto.Entry(verdura).State = EntityState.Detached;
             return _contexto.SaveChanges() > 0;
         }
         public bool Modificar(Verduras verdura)
@@ -71,13 +69,21 @@ namespace Parcial2_Frank.BLL
                 .Include(v => v.Detalle)
                 .ToList();
         }
-
+        
+        //Ojo se que deberia hacer una BLL de vitaminas
         public List<Vitaminas> GetVitaminas(Expression<Func<Vitaminas, bool>> Criterio)
         {
             return _contexto.vitaminas
                 .AsNoTracking()
                 .Where(Criterio)
                 .ToList();
+        }
+        public Vitaminas? Buscarv(int Id)
+        {
+            return _contexto.vitaminas
+                .Where(p => p.VitaminaId == Id)
+                .AsNoTracking()
+                .SingleOrDefault();
         }
 
     }

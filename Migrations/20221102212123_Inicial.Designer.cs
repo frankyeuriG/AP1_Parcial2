@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Parcial2_Frank.Data;
+using Parcial2_Frank.Models;
 
 #nullable disable
 
 namespace Parcial2_Frank.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221101194708_Inicial")]
+    [DbContext(typeof(Contexto))]
+    [Migration("20221102212123_Inicial")]
     partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -221,7 +221,7 @@ namespace Parcial2_Frank.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("FechaCreacion")
+                    b.Property<DateTime>("Fecha")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nombre")
@@ -229,6 +229,7 @@ namespace Parcial2_Frank.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Observaciones")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<double>("Total")
@@ -253,6 +254,10 @@ namespace Parcial2_Frank.Migrations
 
                     b.Property<int>("VitaminaId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("descripcion")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("id");
 

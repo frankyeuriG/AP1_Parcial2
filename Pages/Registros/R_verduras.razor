@@ -4,7 +4,7 @@
 @inject VerdurasBLL verdurasBll
 @inject NotificationService notificationService
 
-<EditForm Model="verdura" OnInvalidSubmit="Guardar">
+<EditForm Model="verdura" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
 
     <div class="container">
@@ -81,7 +81,8 @@
                 <thead class="thead">
                     <tr class="table">
                         <th>VitaminaId</th>
-                        <th>Cantidad</th>
+                        <th>Nombre</th>
+                        <th>Cantidad(mg)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -90,7 +91,8 @@
                     {
                         <tr>
                             <td>@item.VitaminaId</td>
-                            <td>@item.Cantidad (Mg)</td>
+                            <td>@item.descripcion</td>
+                            <td>@item.Cantidad</td>
                         </tr>
                     }
 
@@ -128,9 +130,10 @@
     public int verduraId { get; set; }
 
     public Verduras verdura { get; set; } = new Verduras();
+    public Vitaminas vitamina { get; set; } = new Vitaminas();
     public VerdurasDetalle detalle { get; set; } = new VerdurasDetalle();
     public List<Vitaminas> ListVitaminas { get; set; } = new List<Vitaminas>();
-    
+
 
     protected override void OnInitialized()
     {
@@ -144,7 +147,9 @@
     }
     public void AgregarDetalle()
     {
-        this.verdura.Detalle.Add(this.detalle);
+        var vitamina = verdurasBll.Buscarv(detalle.VitaminaId);
+        detalle.descripcion = vitamina!.Descripcion;
+        verdura.Detalle.Add(detalle);
         detalle = new VerdurasDetalle();
         verdura.Total = verdura.Detalle.Sum(d => d.Cantidad);
 
