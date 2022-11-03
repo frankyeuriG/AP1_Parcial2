@@ -1,4 +1,7 @@
 ﻿@page "/cverduras"
+@using Microsoft.AspNetCore.Components.QuickGrid
+
+@inject Contexto contexto
 @inject VerdurasBLL verduraBll
 @inject NotificationService notificationService
 
@@ -12,12 +15,9 @@
             <div class="card-body">
                 <label>Introduzca un Rango de Fecha</label>
                 <div class="input-group mb-4">
-                    <input type="date" @bind="fecha">
-                    <input type="date" @bind="fecha2">
+                    <input type="date" @bind="fecha" />
+                    <input type="date" @bind="fecha2" />
                     <button @onclick="Buscar" class="btn btn-primary"> <i class="oi oi-magnifying-glass"></i></button>
-                </div>
-                <div class="d-grid gap-2">
-                    <button class="btn btn-primary" type="button" @onclick="Todos">Todos los Registros</button>
                 </div>
             </div>
         </div>
@@ -26,11 +26,11 @@
 
             <thead>
                 <tr>
-                    <th>PagosId</th>
+                    <th>VerduraId</th>
                     <th>Fecha</th>
-                    <th>PersonaId</th>
-                    <th>Concepto</th>
-                    <th>Monto</th>
+                    <th>Nombre</th>
+                    <th>Observaciones</th>
+                    <th>Total</th>
                     <th></th>
                 </tr>
             </thead>
@@ -50,6 +50,20 @@
             </tbody>
 
         </table>
+        <hr />
+        <hr />
+        <div class="card">
+            <div class="card-header">
+                <h4>Todas Las Verduras</h4>
+            </div>
+            <QuickGrid Items="@contexto.verduras" ResizableColumns>
+                <PropertyColumn Property="@(v => v.VerduraId)" Title="VerduaId" Sortable="true" />
+                <PropertyColumn Property="@(v => v.Fecha)" Title="Fecha" Sortable="true" />
+                <PropertyColumn Property="@(v => v.Nombre)" Title="Nombre" Sortable="true" />
+                <PropertyColumn Property="@(v => v.Observaciones)" Title="Observacion" Sortable="true" />
+                <PropertyColumn Property="@(v => v.Total)" Title="Total" Sortable="true" />
+            </QuickGrid>
+        </div>
     </div>
 </EditForm>
 
